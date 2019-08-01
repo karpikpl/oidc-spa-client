@@ -8,10 +8,9 @@
     var manager = new Oidc.UserManager({
       response_mode: 'query'
     });
-    manager.signinRedirectCallback()
+    manager.signinPopupCallback()
       .then(function(user) {
-        sessionStorage.setItem('AT', user.access_token);
-        window.location = "index.html";
+        // do something with the user?
       }).catch(function(e) {
         console.error(e);
       });
