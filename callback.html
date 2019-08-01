@@ -1,0 +1,20 @@
+<html>
+<body>
+  <h1>Callback</h1>
+  <h2><div id="info">...</div></h2>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.8.2/oidc-client.min.js"></script>
+  <script>
+    var manager = new Oidc.UserManager({
+      response_mode: 'query'
+    });
+    manager.signinRedirectCallback()
+      .then(function(user) {
+        sessionStorage.setItem('AT', user.access_token);
+        window.location = "index.html";
+      }).catch(function(e) {
+        console.error(e);
+      });
+  </script>
+</body>
+</html>

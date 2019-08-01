@@ -1,0 +1,56 @@
+<html>
+<body>
+  <h1>Hello</h1>
+  <h2><div id="info">...</div></h2>
+  <div id="at" style="margin:20px"></div>
+  <div id="result" style="margin:20px">foo</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.8.2/oidc-client.min.js"></script>
+  <script>
+  const config = {
+    authority: 'https://demo.identityserver.io/',
+    client_id: 'spa',
+    redirect_uri: 'http://localhost:8080/callback.html',
+    response_type: 'code',
+    scope: 'openid profile email api offline_access'
+  };
+
+  async function runApp() {
+
+    const manager = new Oidc.UserManager(config);
+    const user = await manager.getUser();
+
+    if (!user) {
+      const elem = document.getElementById('info');
+      elem.innerText = 'Redirecting in 3s...';
+
+      setTimeout(() => {
+        try {
+          manager.signinRedirect();
+        } catch (error) {
+          console.log(error);
+        }
+      }, 3000);
+    }
+    else {
+      const tokenElem = document.getElementById('at');
+      tokenElem.innerText = user.access_token;
+
+      // call the API
+      const response = await fetch('https://localhost:6001/api/secure', {
+        headers:{
+          'Authorization': 'Bearer ' + user.access_token
+        }
+      });
+
+      const data = await response.text();
+      const resultElem = document.getElementById('result');
+      resultElem.innerText = data;
+    }
+  }
+
+  runApp();
+
+</script>
+</body>
+</html>
