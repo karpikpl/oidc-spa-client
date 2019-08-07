@@ -26,10 +26,7 @@
       const user = await manager.getUser();
 
       if (user) {
-        const elem = document.getElementById('info');
-        elem.innerText = 'Welcome ' + user.profile.name;
-        
-        await getData(user);
+        await userLoggedIn(user);
       } else {
         const elem = document.getElementById('info');
         elem.innerText = 'Redirecting in 3s...';
@@ -37,16 +34,19 @@
         setTimeout(async () => {
           try {
             const usr = await manager.signinPopup();
-            await getData(usr);
+            await userLoggedIn(usr);
           } catch (error) {
             console.log(error);
           }
         }, 3000);
       }
 
-      async function getData(user) {
+      async function userLoggedIn(user) {
         addLogoutBtn();
 
+        const infoElem = document.getElementById('info');
+        infoElem.innerText = 'Welcome ' + user.profile.name;
+        
         const tokenElem = document.getElementById('at');
         tokenElem.innerText = user.access_token;
 
