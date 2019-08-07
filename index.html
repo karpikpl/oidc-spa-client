@@ -28,8 +28,8 @@
       if (user) {
         await userLoggedIn(user);
       } else {
-        const elem = document.getElementById('info');
-        elem.innerText = 'Redirecting in 3s...';
+        const infoElem = document.getElementById('info');
+        infoElem.innerText = 'Redirecting in 3s...';
 
         setTimeout(async () => {
           try {
@@ -73,7 +73,7 @@
 
       async function logout() {
         try {
-          var result = await manager.signoutPopup();
+          const result = await manager.signoutPopup();
         } finally {
           document.location.reload(true);
         }
