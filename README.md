@@ -71,7 +71,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SecureController : Controller
