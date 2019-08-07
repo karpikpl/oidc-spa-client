@@ -128,6 +128,10 @@ Using samples from this repo
 ```bash
 npx http-server
 ```
+Docker way (there's always a docker way :) ):
+```bash
+docker run --rm --name static-nginx -p 8080:80 -v $PWD/static:/usr/share/nginx/html:ro nginx​
+```
 
 ## Fix CORS in the API
 In *ConfigureServices(..)*:
