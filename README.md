@@ -118,3 +118,32 @@ curl -v -X POST https://demo.identityserver.io/connect/token -d "client_id=clien
 curl https://localhost:6001/api/secure -v -k --header "Authorization: Bearer xxx" | json_pp
 ```
 where *xxx* is the **access_token**
+
+## Inspect the token
+http://jwt.io
+
+## Create the SPA
+Using samples from this repo
+
+## Run the SPA
+```bash
+npx http-server
+```
+
+## Fix CORS in the API
+In *ConfigureServices(..)*:
+
+```csharp
+ services.AddCors(c => c.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    }));
+```
+In *Configure(..)*:
+```csharp
+app.UseCors();
+app.UseMvc();
+```
