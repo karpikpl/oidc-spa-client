@@ -26,6 +26,9 @@
       const user = await manager.getUser();
 
       if (user) {
+        const elem = document.getElementById('info');
+        elem.innerText = 'Welcome ' + user.profile.name;
+        
         await getData(user);
       } else {
         const elem = document.getElementById('info');
